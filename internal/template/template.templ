@@ -1,0 +1,28 @@
+package template
+
+import "portfolio/internal/component"
+
+templ Base(title string) {
+    <html>
+        <head>
+            <meta charset="UTF-8"></meta>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+            <title>{title}</title>
+        </head>
+            @component.Banner()
+        <body>
+            <main class="p-6 grid gap-4">
+                { children... }
+            </main>
+        </body>
+    </html>
+}
+
+// route!("GET /")
+// middleware!(ParseForm)
+templ Home(title string) {
+    @Base(title) {
+        @component.TextAndTitle("I'm a Component!", "I am included as a content item in the Base Template!")
+		@component.TextAndTitle("I'm another Component!", "I am also included in the Base Template!")
+    }
+}
