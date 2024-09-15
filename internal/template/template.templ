@@ -9,7 +9,7 @@ templ Base(title string) {
             <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
             <title>{title}</title>
         </head>
-            @component.Banner()
+            <header class="p-6 flex flex-col justify-between"/>
         <body>
             <main class="p-6 grid gap-4">
                 { children... }
@@ -22,7 +22,6 @@ templ Base(title string) {
 // middleware!(ParseForm)
 templ Home(title string) {
     @Base(title) {
-        @component.TextAndTitle("I'm a Component!", "I am included as a content item in the Base Template!")
-		@component.TextAndTitle("I'm another Component!", "I am also included in the Base Template!")
+        @component.Hello()
     }
 }
