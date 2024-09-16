@@ -10,8 +10,6 @@ RUN go mod download && go mod verify
 
 COPY . .
 
-COPY tailwind.config.js ./
-
 RUN go build -o main main.go
 
 EXPOSE 8080
