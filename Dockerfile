@@ -1,14 +1,16 @@
 FROM golang:1.23.1-alpine
 WORKDIR /app
+  
+RUN apk --no-cache add curl \
+  && curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64 \
+  && mv tailwindcss-linux-x64 tailwindcss && chmod +x tailwindcss
 
-RUN go install github.com/a-h/templ/cmd/templ@latest
-
-COPY go.* ./
-RUN go version
-RUN go mod download
-RUN go mod tidy
+COPY go.mod go.sum ./
+RUN go mod download && go mod verify
 
 COPY . .
+
+COPY tailwind.config.js ./
 
 RUN go build -o main main.go
 
