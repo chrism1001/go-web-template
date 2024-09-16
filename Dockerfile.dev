@@ -1,0 +1,17 @@
+FROM golang:1.23.1-alpine AS base
+
+WORKDIR /app
+
+RUN go install github.com/a-h/templ/cmd/templ@latest
+RUN go install github.com/air-verse/air@latest
+RUN apk --no-cache add curl \
+  && curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64 \
+  && mv tailwindcss-linux-x64 tailwindcss && chmod +x tailwindcss
+
+COPY go.mod go.sum ./
+RUN go mod download && go mod verify
+COPY . ./
+
+CMD ["air"]
+
+
